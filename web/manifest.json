@@ -1,11 +1,11 @@
 {
-    "name": "WhatsApp link direto",
-    "short_name": "WhatsApp link",
+    "name": "Chama no Whats",
+    "short_name": "Chama",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "WhatsApp link direto",
+    "description": "Chama no Whats",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

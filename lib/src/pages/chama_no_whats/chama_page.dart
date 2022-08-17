@@ -29,7 +29,6 @@ class _HomePageState extends State<HomePage> {
 
   ScreenSize getSize(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.shortestSide;
-    if (deviceWidth > 900) return ScreenSize.extraLarge;
     if (deviceWidth > 600) return ScreenSize.large;
     if (deviceWidth > 300) return ScreenSize.normal;
     return ScreenSize.small;
@@ -50,20 +49,25 @@ class _HomePageState extends State<HomePage> {
                     getSize(context) == ScreenSize.large ? size.width / 3 : 15,
               ),
               child: ConstrainedBox(
-                constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height),
+                constraints: const BoxConstraints(
+                    //maxHeight: MediaQuery.of(context).size.height,
+                    ),
                 child: IntrinsicHeight(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Image.asset(
                         'assets/images/logo.png',
-                        height: 200,
+                        height: 110,
                       ),
+                      const SizedBox(height: 10),
                       const Text(
-                        'Insira o número que deseja iniciar uma conversa do WhatsApp e clique em abrir conversa',
+                        'Insira o número que deseja iniciar uma conversa do WhatsApp e clique em abrir conversa.',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 17, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
                       Padding(
@@ -74,6 +78,7 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               TextFormField(
                                 keyboardType: TextInputType.phone,
+                                onEditingComplete: () {},
                                 onFieldSubmitted: (_) {
                                   onPressed();
                                 },
@@ -81,9 +86,10 @@ class _HomePageState extends State<HomePage> {
                                 controller: _numberEC,
                                 inputFormatters: [numberFormatter],
                                 decoration: InputDecoration(
-                                  hintText: 'Ex 11 91122 3344',
+                                  hintText: '(__) _____-_____',
                                   border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20)),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
                                   isDense: true,
                                   label: const Text('Número'),
                                 ),
@@ -92,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                                     Validatorless.required(
                                         'O número é Obrigatótio 🤡'),
                                     Validatorless.min(
-                                        10, 'Tá faltando números 🙄'),
+                                        12, 'Tá faltando números 🙄'),
                                   ],
                                 ),
                               ),
@@ -168,6 +174,9 @@ class _HomePageState extends State<HomePage> {
                               },
                               child: const Text('HOLT'))
                         ],
+                      ),
+                      const SizedBox(
+                        height: 5,
                       )
                     ],
                   ),

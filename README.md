@@ -1,4 +1,4 @@
-<img src="https://img.shields.io/badge/Version-1.0.0-green"> <img src="https://img.shields.io/badge/license-MIT-blue"> 
+<img src="https://img.shields.io/badge/Version-2.0.0-green"> <img src="https://img.shields.io/badge/license-MIT-blue"> 
 
 # Whats Link
 
