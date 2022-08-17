@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -143,7 +144,16 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: Observer(
                           builder: (_) {
-                            return Text(_controller.urlShortener);
+                            return Visibility(
+                              visible: _controller.generateLink,
+                              child: Tooltip(
+                                message: 'Link Copiado!',
+                                child: SelectableText(
+                                  _controller.urlShortener,
+                                  style: const TextStyle(color: Colors.green),
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -183,18 +193,18 @@ class _HomePageState extends State<HomePage> {
       }
 
       final number = formatNumber(number: _numberEC.text);
+      final url = 'https://wa.me/55$number?text=${_messageEC.text}';
       if (!_controller.generateLink) {
         await launch(
-          'https://wa.me/55$number?text=${_messageEC.text}',
+          url,
           forceSafariVC: true,
           forceWebView: true,
           headers: <String, String>{'target': '_self'},
         );
       }
-      print(_controller
-          .getShortener('https://wa.me/55$number?text=${_messageEC.text}'));
-      _controller
-          .getShortener('https://wa.me/55$number?text=${_messageEC.text}');
+
+      final urlShortener = await _controller.getShortener(url);
+      Clipboard.setData(ClipboardData(text: urlShortener));
     }
   }
 }

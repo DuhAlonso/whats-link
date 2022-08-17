@@ -41,18 +41,12 @@ mixin _$ChamaController on ChamaControllerBase, Store {
     });
   }
 
-  late final _$ChamaControllerBaseActionController =
-      ActionController(name: 'ChamaControllerBase', context: context);
+  late final _$getShortenerAsyncAction =
+      AsyncAction('ChamaControllerBase.getShortener', context: context);
 
   @override
-  Future<dynamic> getShortener(String url) {
-    final _$actionInfo = _$ChamaControllerBaseActionController.startAction(
-        name: 'ChamaControllerBase.getShortener');
-    try {
-      return super.getShortener(url);
-    } finally {
-      _$ChamaControllerBaseActionController.endAction(_$actionInfo);
-    }
+  Future<String> getShortener(String url) {
+    return _$getShortenerAsyncAction.run(() => super.getShortener(url));
   }
 
   @override

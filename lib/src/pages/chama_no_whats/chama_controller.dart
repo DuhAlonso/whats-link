@@ -14,8 +14,10 @@ abstract class ChamaControllerBase with Store {
   bool generateLink = false;
 
   @action
-  Future getShortener(String url) {
-    final urlShortener = _respository.generateShortener(url);
-    return urlShortener;
+  Future<String> getShortener(String url) async {
+    final urlS = await _respository.generateShortener(url);
+
+    urlShortener = urlS;
+    return urlS;
   }
 }

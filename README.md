@@ -8,19 +8,24 @@ App feito para abrir conversa do WhtasApp sem salvar o número do destinatário.
 
 :iphone: Digita o número.  
 :iphone: Validação do número digitado.  
+:iphone: Opcional adicionar uma mensagem.  
 :iphone: Abre o WhatsApp direto na conversa.  
+:iphone: Gera link curto para compartilhar.  
 
 ## Teste o app
 
-🖥️ [link do app hospedado](https://whatsapp-link.duhalonso.com/)
+🖥️ [link do app hospedado](https://chama.holt.dev.br/)
 
 ## Screenshots
 
-<img src="https://github.com/DuhAlonso/whats-link/blob/main/screenshot/Screen1.png" width="250"> <img src="https://github.com/DuhAlonso/whats-link/blob/main/screenshot/Screen2.png" width="250">
+<img src="https://github.com/DuhAlonso/whats-link/blob/main/screenshot/Screen1.png" width="250"> <img src="https://github.com/DuhAlonso/whats-link/blob/main/screenshot/Screen2.png" width="250"> <img src="https://github.com/DuhAlonso/whats-link/blob/main/screenshot/Screen3.png" width="250">
+<img src="https://github.com/DuhAlonso/whats-link/blob/main/screenshot/web_screenshot.png" width="500">
 
 ### No Futuro
 - [ ] Novas funcionalidades
-- [ ] Novo Design
+  - [X] Gerar link curto
+  - [X] Adicionar mensagem
+- [X] Novo Design
 
 </br>
 </br>
