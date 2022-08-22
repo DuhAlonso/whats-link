@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                                 keyboardType: TextInputType.phone,
                                 onEditingComplete: () {},
                                 onFieldSubmitted: (_) {
-                                  onPressed();
+                                  onPressed(1);
                                 },
                                 maxLength: 16,
                                 controller: _numberEC,
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                                     Validatorless.required(
                                         'O número é Obrigatótio 🤡'),
                                     Validatorless.min(
-                                        12, 'Tá faltando números 🙄'),
+                                        14, 'Tá faltando números 🙄'),
                                   ],
                                 ),
                               ),
@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                               TextFormField(
                                 keyboardType: TextInputType.text,
                                 onFieldSubmitted: (_) {
-                                  onPressed();
+                                  onPressed(1);
                                 },
                                 maxLength: 100,
                                 maxLines: 3,
@@ -126,7 +126,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: onPressed,
+                        onPressed: () {
+                          onPressed(1);
+                        },
                         child: const Text(
                           'Abrir Conversa',
                           style: TextStyle(fontSize: 18),
@@ -143,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                       TextButton(
                           onPressed: () {
                             _controller.generateLink = true;
-                            onPressed();
+                            onPressed(0);
                           },
                           child: const Text('Gerar link para compartilhar')),
                       Padding(
@@ -189,7 +191,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void onPressed() async {
+  void onPressed(int f) async {
     final formValid = _formKey.currentState?.validate() ?? false;
     if (formValid) {
       String formatNumber({required String number}) {
@@ -204,18 +206,17 @@ class _HomePageState extends State<HomePage> {
       final number = formatNumber(number: _numberEC.text);
       final url =
           'https://api.whatsapp.com/send?phone=55$number&text=${_messageEC.text}';
-
-      if (!_controller.generateLink) {
+      if (f == 1) {
         await launch(
           Uri.parse(url).toString(),
           forceSafariVC: true,
           forceWebView: true,
           headers: <String, String>{'target': '_self'},
         );
+      } else {
+        final urlShortener = await _controller.getShortener(url);
+        Clipboard.setData(ClipboardData(text: urlShortener));
       }
-
-      final urlShortener = await _controller.getShortener(url);
-      Clipboard.setData(ClipboardData(text: urlShortener));
     }
   }
 }
