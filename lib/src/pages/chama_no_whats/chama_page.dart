@@ -4,7 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:validatorless/validatorless.dart';
-import 'package:whats_link/src/pages/chama_no_whats/chama_controller.dart';
+import 'package:chama/src/pages/chama_no_whats/chama_controller.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

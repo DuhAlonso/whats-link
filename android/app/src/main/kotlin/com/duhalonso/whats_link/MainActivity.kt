@@ -1,4 +1,4 @@
-package com.duhalonso.whats_link
+package br.dev.holt.chama
 
 import io.flutter.embedding.android.FlutterActivity
 

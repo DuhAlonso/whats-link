@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:whats_link/src/pages/chama_no_whats/chama_page.dart';
+import 'package:chama/src/pages/chama_no_whats/chama_page.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);

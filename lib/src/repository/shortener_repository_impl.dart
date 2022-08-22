@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:whats_link/src/core/token_api.dart';
+import 'package:chama/src/core/token_api.dart';
 
 import 'package:http/http.dart' as http;
 
-import 'package:whats_link/src/repository/shortener_repository.dart';
+import 'package:chama/src/repository/shortener_repository.dart';
 
 class ShortenerRepositoryImpl implements ShortenerRepository {
   @override
