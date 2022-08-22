@@ -202,10 +202,12 @@ class _HomePageState extends State<HomePage> {
       }
 
       final number = formatNumber(number: _numberEC.text);
-      final url = 'https://wa.me/55$number?text=${_messageEC.text}';
+      final url =
+          'https://api.whatsapp.com/send?phone=55$number&text=${_messageEC.text}';
+
       if (!_controller.generateLink) {
         await launch(
-          url,
+          Uri.parse(url).toString(),
           forceSafariVC: true,
           forceWebView: true,
           headers: <String, String>{'target': '_self'},

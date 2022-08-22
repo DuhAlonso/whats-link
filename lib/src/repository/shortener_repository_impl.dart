@@ -27,6 +27,6 @@ class ShortenerRepositoryImpl implements ShortenerRepository {
     } on SocketException {
       throw 'No Internet connection';
     }
-    return 'Erro';
+    return 'Algo deu errado, Tente novamente!';
   }
 }
