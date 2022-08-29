@@ -1,7 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.dev.holt.chama">
+
+  <uses-permission android:name="android.permission.INTERNET" /> 
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
    <application
-        android:label="chama"
+        android:label="Chama"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
