@@ -1,27 +1,28 @@
+import 'package:chama/src/controllers/home_controller.dart';
+import 'package:chama/src/ui/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:validatorless/validatorless.dart';
-import 'package:chama/src/pages/chama_no_whats/chama_controller.dart';
+import 'package:share_plus/share_plus.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
 enum ScreenSize { small, normal, large, extraLarge }
 
 class _HomePageState extends State<HomePage> {
-  final _controller = ChamaController();
+  final _controller = HomeController();
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _numberEC = TextEditingController();
   final TextEditingController _messageEC = TextEditingController();
-  final String msg = 'Insira';
   final numberFormatter = MaskTextInputFormatter(
     mask: '(##) #####-####',
     filter: {'#': RegExp(r'[0-9]')},
@@ -80,7 +81,14 @@ class _HomePageState extends State<HomePage> {
                                 keyboardType: TextInputType.phone,
                                 onEditingComplete: () {},
                                 onFieldSubmitted: (_) {
-                                  onPressed(1);
+                                  final formValid =
+                                      _formKey.currentState?.validate() ??
+                                          false;
+                                  if (formValid) {
+                                    _controller.openWhatsApp(
+                                        number: _numberEC.text,
+                                        message: _messageEC.text);
+                                  }
                                 },
                                 maxLength: 16,
                                 controller: _numberEC,
@@ -89,9 +97,24 @@ class _HomePageState extends State<HomePage> {
                                   hintText: '(__) _____-_____',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20),
+                                    borderSide:
+                                        const BorderSide(color: Colors.green),
                                   ),
                                   isDense: true,
-                                  label: const Text('Número'),
+                                  label: Text(
+                                    'Número',
+                                    style: TextStyle(color: Colors.green[800]),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: const BorderSide(
+                                        color: Colors.green, width: 2),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide:
+                                        const BorderSide(color: Colors.green),
+                                  ),
                                 ),
                                 validator: Validatorless.multiple(
                                   [
@@ -108,7 +131,14 @@ class _HomePageState extends State<HomePage> {
                               TextFormField(
                                 keyboardType: TextInputType.text,
                                 onFieldSubmitted: (_) {
-                                  onPressed(1);
+                                  final formValid =
+                                      _formKey.currentState?.validate() ??
+                                          false;
+                                  if (formValid) {
+                                    _controller.openWhatsApp(
+                                        number: _numberEC.text,
+                                        message: _messageEC.text);
+                                  }
                                 },
                                 maxLength: 100,
                                 maxLines: 3,
@@ -118,51 +148,83 @@ class _HomePageState extends State<HomePage> {
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20)),
                                   isDense: true,
-                                  label: const Text('Mensagem'),
+                                  label: Text('Mensagem',
+                                      style:
+                                          TextStyle(color: Colors.green[800])),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: const BorderSide(
+                                        color: Colors.green, width: 2),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide:
+                                        const BorderSide(color: Colors.green),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
                       ),
-                      ElevatedButton(
+                      ElevatedButtonDefault(
+                        title: 'Abrir Conversa',
                         onPressed: () {
-                          onPressed(1);
+                          final formValid =
+                              _formKey.currentState?.validate() ?? false;
+                          if (formValid) {
+                            _controller.openWhatsApp(
+                                number: _numberEC.text,
+                                message: _messageEC.text);
+                          }
                         },
-                        child: const Text(
-                          'Abrir Conversa',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(200, 45),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40))),
+                        size: size,
                       ),
                       const SizedBox(
                         height: 15,
                       ),
                       const Text('OU'),
-                      TextButton(
-                          onPressed: () {
-                            _controller.generateLink = true;
-                            onPressed(0);
-                          },
-                          child: const Text('Gerar link para compartilhar')),
+                      Obx(() {
+                        if (!_controller.isLoading.value) {
+                          return TextButton(
+                              onPressed: () {
+                                final formValid =
+                                    _formKey.currentState?.validate() ?? false;
+                                if (formValid) {
+                                  _controller.generateLinkBitly(
+                                      number: _numberEC.text,
+                                      message: _messageEC.text);
+                                }
+                              },
+                              child: const Text(
+                                'Gerar link para compartilhar',
+                                style: TextStyle(color: Colors.green),
+                              ));
+                        }
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: CircularProgressIndicator(
+                            color: Colors.green,
+                          ),
+                        );
+                      }),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Observer(
-                          builder: (_) {
-                            return Visibility(
-                              visible: _controller.generateLink,
-                              child: Tooltip(
-                                message: 'Link Copiado!',
-                                child: SelectableText(
-                                  _controller.urlShortener,
+                        child: Obx(
+                          () => Visibility(
+                            visible: _controller.generateLink.value,
+                            child: Tooltip(
+                              showDuration: const Duration(seconds: 2),
+                              message: 'Link Copiado!',
+                              textStyle: const TextStyle(color: Colors.green),
+                              child: SelectableText(
+                                  _controller.urlShortener.value,
                                   style: const TextStyle(color: Colors.green),
-                                ),
-                              ),
-                            );
-                          },
+                                  onTap: () {
+                                Share.share(_controller.urlShortener.value);
+                              }),
+                            ),
+                          ),
                         ),
                       ),
                       const Spacer(),
@@ -172,9 +234,13 @@ class _HomePageState extends State<HomePage> {
                           const Text('Feito com ❤️ por'),
                           TextButton(
                               onPressed: () {
-                                launch('https://holt.dev.br/');
+                                launchUrlString('https://holt.dev.br/');
                               },
-                              child: const Text('HOLT'))
+                              style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  visualDensity: VisualDensity.compact),
+                              child: Text('HOLT',
+                                  style: TextStyle(color: Colors.green[800])))
                         ],
                       ),
                       const SizedBox(
@@ -189,34 +255,5 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
-  }
-
-  void onPressed(int f) async {
-    final formValid = _formKey.currentState?.validate() ?? false;
-    if (formValid) {
-      String formatNumber({required String number}) {
-        String n = number;
-        n = n.replaceAll(' ', '');
-        n = n.replaceAll('-', '');
-        n = n.replaceAll('(', '');
-        n = n.replaceAll(')', '');
-        return n;
-      }
-
-      final number = formatNumber(number: _numberEC.text);
-      final url =
-          'https://api.whatsapp.com/send?phone=55$number&text=${_messageEC.text}';
-      if (f == 1) {
-        await launch(
-          Uri.parse(url).toString(),
-          forceSafariVC: true,
-          forceWebView: true,
-          headers: <String, String>{'target': '_self'},
-        );
-      } else {
-        final urlShortener = await _controller.getShortener(url);
-        Clipboard.setData(ClipboardData(text: urlShortener));
-      }
-    }
   }
 }

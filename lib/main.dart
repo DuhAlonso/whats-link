@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:chama/src/pages/chama_no_whats/chama_page.dart';
+import 'package:chama/src/ui/pages/home_page.dart';
+import 'package:get/get.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
-  runApp(MaterialApp(
+  runApp(GetMaterialApp(
     theme: ThemeData(
       primarySwatch: Colors.green,
+      primaryColor: Colors.green,
       fontFamily: 'Roboto',
       appBarTheme: const AppBarTheme(
         systemOverlayStyle: SystemUiOverlayStyle.dark,

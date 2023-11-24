@@ -19,10 +19,9 @@ class ShortenerRepositoryImpl implements ShortenerRepository {
           'Authorization': 'Bearer $API_TOKEN'
         },
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
-        final url = data['link'];
-        return url;
+        return data['link'];
       }
     } on SocketException {
       throw 'No Internet connection';
