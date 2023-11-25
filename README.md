@@ -1,4 +1,6 @@
-<img src="https://img.shields.io/badge/Version-2.0.0-green"> <img src="https://img.shields.io/badge/license-MIT-blue"> 
+![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white) ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white) <img src="https://img.shields.io/badge/Get--X-blue?style=for-the-badge"> <img src="https://img.shields.io/badge/Google_Play-fedcba?style=for-the-badge&link=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dbr.dev.holt.chama%26pcampaignid%3Dweb_share
+">  <img src="https://img.shields.io/badge/Version-1.2.0-gray?style=for-the-badge"> <img src="https://img.shields.io/badge/Licence-MIT-gray?style=for-the-badge&labelColor=8A2BE2"> 
+
 
 # Whats Link
 
@@ -40,7 +42,6 @@ App feito para abrir conversa do WhtasApp sem salvar o número do destinatário.
   <a href="https://www.linkedin.com/in/eduardo-alonso-685509b7" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
 </p>
 <p align="center">
- *Estudar é fundamental para um bom futuro, estudar e praticar é a chave do SUCESSO!*
 
 </p>
 

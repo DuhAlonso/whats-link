@@ -1,3 +1,4 @@
+import 'package:chama/src/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:chama/src/ui/pages/home_page.dart';
@@ -16,6 +17,12 @@ void main() {
       ),
     ),
     debugShowCheckedModeBanner: false,
-    home: const HomePage(),
+    getPages: [
+      GetPage(
+        binding: BindingsBuilder.put(() => HomeController()),
+        name: '/',
+        page: () => const HomePage(),
+      ),
+    ],
   ));
 }

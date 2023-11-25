@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 enum ScreenSize { small, normal, large, extraLarge }
 
 class _HomePageState extends State<HomePage> {
-  final _controller = HomeController();
+  final _controller = Get.find<HomeController>();
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _numberEC = TextEditingController();
@@ -57,14 +57,13 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const SizedBox(
-                        height: 20,
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20, bottom: 10),
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          height: 110,
+                        ),
                       ),
-                      Image.asset(
-                        'assets/images/logo.png',
-                        height: 110,
-                      ),
-                      const SizedBox(height: 10),
                       const Text(
                         'Insira o número que deseja iniciar uma conversa do WhatsApp e clique em abrir conversa.',
                         style: TextStyle(
@@ -79,7 +78,6 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               TextFormField(
                                 keyboardType: TextInputType.phone,
-                                onEditingComplete: () {},
                                 onFieldSubmitted: (_) {
                                   final formValid =
                                       _formKey.currentState?.validate() ??
@@ -185,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const Text('OU'),
                       Obx(() {
-                        if (!_controller.isLoading.value) {
+                        if (!_controller.isLoading) {
                           return TextButton(
                               onPressed: () {
                                 final formValid =
@@ -212,16 +210,15 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: Obx(
                           () => Visibility(
-                            visible: _controller.generateLink.value,
+                            visible: _controller.generateLink,
                             child: Tooltip(
                               showDuration: const Duration(seconds: 2),
                               message: 'Link Copiado!',
                               textStyle: const TextStyle(color: Colors.green),
-                              child: SelectableText(
-                                  _controller.urlShortener.value,
+                              child: SelectableText(_controller.urlShortener,
                                   style: const TextStyle(color: Colors.green),
                                   onTap: () {
-                                Share.share(_controller.urlShortener.value);
+                                Share.share(_controller.urlShortener);
                               }),
                             ),
                           ),
